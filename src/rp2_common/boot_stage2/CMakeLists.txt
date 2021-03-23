@@ -1,6 +1,10 @@
 # PICO_CMAKE_CONFIG: PICO_DEFAULT_BOOT_STAGE2_FILE, Default stage2 file to use unless overridden by pico_set_boot_stage2 on the TARGET, type=bool, default=.../boot2_w25q080.S, group=build
 if (NOT PICO_DEFAULT_BOOT_STAGE2_FILE)
-    set(PICO_DEFAULT_BOOT_STAGE2_FILE "${CMAKE_CURRENT_LIST_DIR}/boot2_w25q080.S")
+    if (PICO_BOARD STREQUAL "adafruit_feather_rp2040")
+        set(PICO_DEFAULT_BOOT_STAGE2_FILE "${CMAKE_CURRENT_LIST_DIR}/boot2_generic_03h.S")
+    else ()
+        set(PICO_DEFAULT_BOOT_STAGE2_FILE "${CMAKE_CURRENT_LIST_DIR}/boot2_w25q080.S")
+    endif()
 endif()
 
 set(PICO_DEFAULT_BOOT_STAGE2_FILE "${PICO_DEFAULT_BOOT_STAGE2_FILE}" CACHE STRING "boot_stage2 source file" FORCE)
